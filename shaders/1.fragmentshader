@@ -1,0 +1,23 @@
+#version 330 core
+
+out vec4 FragColor;
+
+in vec3 FragPos;
+in vec3 Normal;
+
+uniform vec3 lightPos;
+uniform vec3 lightColor;
+//uniform vec3 objectColor;
+
+void main()
+{
+    // Calculate the direction of the light source
+    vec3 lightDir = normalize(lightPos - FragPos);
+    
+    // Calculate the angle between the normal vector and the light direction
+    float diff = max(dot(Normal, lightDir), 0.0);
+    
+    // Calculate the final color based on the angle and the light and object colors
+    vec3 diffuse = diff * lightColor;// * objectColor;
+    FragColor = vec4(diffuse, 1.0);
+}
